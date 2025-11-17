@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsalim <bsalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: swilmat <swilmat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 00:39:16 by bsalim            #+#    #+#             */
-/*   Updated: 2025/11/16 11:03:19 by bsalim           ###   ########.fr       */
+/*   Updated: 2025/11/17 21:24:21 by swilmat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,24 @@ void PhoneBook::search_contact()
     {
         contact[i].DisplayShort(i + 1);
     }
-    int user_index = 0;
+    int user_index;
     std::cout << "Entre index from 1 -> 8" << std::endl;
-	std::cin >> user_index;
-    if(user_index < 1 || user_index > 8 || user_index > index)
+    while(true)
     {
-        if(user_index > index)
-        {
-            std::cout << "the Contact is empty" << std::endl;
+        std::string input;
+        if(!std::getline(std::cin >> std::ws, input))
             return ;
+        if(input.size() == 1 && std::isdigit(input[0]))
+        { 
+            user_index = input[0] - '0';
+            if(user_index < 1 || user_index > index)
+            {
+                std::cout << "the Contact is empty" << std::endl;
+                return ;
+            }
+            break;
         }
-        std::cout << "You'r Out the interval" << std::endl;
-        return ;
+        std::cout << "Entre index from 1 -> 8" << std::endl;        
     }
     contact[user_index - 1].DisplayFullContact();
 }
